@@ -42,12 +42,17 @@ public class PlayerController : MonoBehaviour
         get { return _isFacingRight; }
         private set
         {
-            if (isFacingRight != value)
+            if (_isFacingRight != value)
             {
                 transform.localScale *= new Vector2(-1, 1);
             }
             _isFacingRight = value;
         }
+    }
+
+    public bool canMove
+    {
+        get { return animator.GetBool(AnimationStrings.canMove); }
     }
 
     void Awake()
@@ -73,10 +78,14 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            if (isMoving && !touchingDirections.isOnWall)
+            if (canMove)
             {
-                if (touchingDirections.isGrounded) return isRunning ? runSpeed : walkSpeed;
-                else return airSpeedX;
+                if (isMoving && !touchingDirections.isOnWall)
+                {
+                    if (touchingDirections.isGrounded) return isRunning ? runSpeed : walkSpeed;
+                    else return airSpeedX;
+                }
+                else return 0f;
             }
             else return 0f;
         }
@@ -118,13 +127,21 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
         }
     }
-    
+
     public void onJump(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.isGrounded)
+        if (context.started && touchingDirections.isGrounded && canMove)
         {
-            animator.SetTrigger(AnimationStrings.jump);
+            animator.SetTrigger(AnimationStrings.jumpTrigger);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
+        }
+    }
+    
+    public void onAttack(InputAction.CallbackContext context)
+    {
+        if (context.started && touchingDirections.isGrounded && canMove) 
+        {
+            animator.SetTrigger(AnimationStrings.attackTrigger);
         }
     }
 }
