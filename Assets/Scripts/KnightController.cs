@@ -5,8 +5,11 @@ using UnityEngine;
 public class KnightController : MonoBehaviour
 {
     public float walkSpeed = 3f;
+    public float attackCooldown = 1f;
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
+    public DetectionZone detectionZone;
+    Animator animator;
     public enum WalkDirection
     {
         Right,
@@ -15,6 +18,23 @@ public class KnightController : MonoBehaviour
 
     private WalkDirection _walkDirection;
     private Vector2 walkableDirection = Vector2.right;
+    private float attackCooldownTimer;
+    public bool _isInAttackRange = false;
+    public float walkToStopRate = 0.015f;
+
+    public bool isInAttackRange
+    {
+        get { return _isInAttackRange; }
+        private set
+        {
+            _isInAttackRange = value;
+            animator.SetBool(AnimationStrings.isInAttackRange, value);
+        }
+    }
+    public bool canMove
+    {
+        get { return animator.GetBool(AnimationStrings.canMove); }
+    }
 
     public WalkDirection walkDirection
     {
@@ -41,21 +61,42 @@ public class KnightController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+        animator = GetComponent<Animator>();
 
+        attackCooldownTimer = Time.time;
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        if (Time.time >= attackCooldownTimer)
+        {
+            isInAttackRange = detectionZone.detectedColliders.Count > 0;
+            attackCooldownTimer = Time.time + attackCooldown;
+        } 
+        else
+        {
+            if (isInAttackRange)
+            {
+                isInAttackRange = false;
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         if (touchingDirections.isOnWall && touchingDirections.isGrounded)
         {
             FlipDirection();
         }
-        rb.linearVelocity = new Vector2(walkableDirection.x * walkSpeed, rb.linearVelocity.y);
+        if (canMove)
+        {
+            rb.linearVelocity = new Vector2(walkableDirection.x * walkSpeed, rb.linearVelocity.y);
+        } 
+        else
+        {
+            rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkToStopRate), rb.linearVelocity.y);
+        }
     }
 
     private void FlipDirection()

@@ -1,6 +1,7 @@
 using System;
 internal class AnimationStrings
 {
+    //Player's animation strings
     internal static string isMoving = "isMoving";
     internal static string isRunning = "isRunning";
     internal static string isGrounded = "isGrounded";
@@ -10,4 +11,7 @@ internal class AnimationStrings
     internal static string isOnCeiling = "isOnCeiling";
     internal static string attackTrigger = "attack";
     internal static string canMove = "canMove";
+
+    //Knight's animation strings
+    internal static string isInAttackRange = "isInAttackRange";
 }
