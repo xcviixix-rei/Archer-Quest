@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
     Animator animator;
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private bool _isRunning = false;
     private bool _isFacingRight = true;
     TouchingDirections touchingDirections;
+    Damageable damageable;
 
     public bool isMoving
     {
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
     }
     public bool isAlive
     {
-        get {return animator.GetBool(AnimationStrings.isAlive); }
+        get { return animator.GetBool(AnimationStrings.isAlive); }
     }
 
     void Awake()
@@ -64,18 +65,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        damageable = GetComponent<Damageable>();
     }
 
     public float currentSpeed
@@ -95,9 +85,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(moveInput.x * currentSpeed, rb.linearVelocity.y);
+        if (!damageable.lockVelocity)
+        {
+            rb.linearVelocity = new Vector2(moveInput.x * currentSpeed, rb.linearVelocity.y);
+        }
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
 
@@ -147,12 +141,17 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
         }
     }
-    
+
     public void onAttack(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.isGrounded && canMove) 
+        if (context.started && touchingDirections.isGrounded && canMove)
         {
             animator.SetTrigger(AnimationStrings.attackTrigger);
         }
+    }
+
+    public void onHit(int damage, Vector2 knockback)
+    {
+        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
     }
 }

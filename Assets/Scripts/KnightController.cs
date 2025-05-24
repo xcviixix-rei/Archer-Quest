@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class KnightController : MonoBehaviour
 {
     public float walkSpeed = 3f;
-    public float attackCooldownDuration = 1.5f;
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
     public DetectionZone detectionZone;
+    Damageable damageable;
     Animator animator;
     public enum WalkDirection
     {
@@ -18,9 +18,7 @@ public class KnightController : MonoBehaviour
 
     private WalkDirection _walkDirection;
     private Vector2 walkableDirection = Vector2.right;
-    private float attackCooldownTimer;
     public bool _isInAttackRange = false;
-    public bool _isCoolingDownAttack = false;
 
     public bool isInAttackRange
     {
@@ -29,15 +27,6 @@ public class KnightController : MonoBehaviour
         {
             _isInAttackRange = value;
             animator.SetBool(AnimationStrings.isInAttackRange, value);
-        }
-    }
-    public bool isCoolingDownAttack
-    {
-        get { return _isCoolingDownAttack; }
-        private set
-        {
-            _isCoolingDownAttack = value;
-            animator.SetBool(AnimationStrings.isCoolingDownAttack, value);
         }
     }
     public bool canMove
@@ -71,25 +60,13 @@ public class KnightController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
-
-        attackCooldownTimer = Time.time;
+        damageable = GetComponent<Damageable>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= attackCooldownTimer)
-        {
-            isInAttackRange = detectionZone.detectedColliders.Count > 0;
-            attackCooldownTimer = Time.time + attackCooldownDuration;
-        }
-        else
-        {
-            if (isInAttackRange)
-            {
-                isInAttackRange = false;
-            }
-        }
+        isInAttackRange = detectionZone.detectedColliders.Count > 0;
     }
 
     void FixedUpdate()
@@ -98,13 +75,16 @@ public class KnightController : MonoBehaviour
         {
             FlipDirection();
         }
-        if (canMove)
+        if (!damageable.lockVelocity)
         {
-            rb.linearVelocity = new Vector2(walkableDirection.x * walkSpeed, rb.linearVelocity.y);
-        } 
-        else
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            if (canMove)
+            {
+                rb.linearVelocity = new Vector2(walkableDirection.x * walkSpeed, rb.linearVelocity.y);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            }
         }
     }
 
@@ -117,9 +97,14 @@ public class KnightController : MonoBehaviour
         else if (walkDirection == WalkDirection.Left)
         {
             walkDirection = WalkDirection.Right;
-        } else 
+        }
+        else
         {
             Debug.LogError("Invalid walk direction");
         }
+    }
+    public void onHit(int damage, Vector2 knockback)
+    {
+        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
     }
 }
