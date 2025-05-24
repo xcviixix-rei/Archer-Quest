@@ -14,4 +14,6 @@ internal class AnimationStrings
 
     //Knight's animation strings
     internal static string isInAttackRange = "isInAttackRange";
+    internal static string isCoolingDownAttack = "isCoolingDownAttack";
+    internal static string isAlive = "isAlive";
 }

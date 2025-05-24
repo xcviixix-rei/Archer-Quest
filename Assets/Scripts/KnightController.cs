@@ -5,7 +5,7 @@ using UnityEngine;
 public class KnightController : MonoBehaviour
 {
     public float walkSpeed = 3f;
-    public float attackCooldown = 1f;
+    public float attackCooldownDuration = 1.5f;
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
     public DetectionZone detectionZone;
@@ -20,7 +20,7 @@ public class KnightController : MonoBehaviour
     private Vector2 walkableDirection = Vector2.right;
     private float attackCooldownTimer;
     public bool _isInAttackRange = false;
-    public float walkToStopRate = 0.015f;
+    public bool _isCoolingDownAttack = false;
 
     public bool isInAttackRange
     {
@@ -29,6 +29,15 @@ public class KnightController : MonoBehaviour
         {
             _isInAttackRange = value;
             animator.SetBool(AnimationStrings.isInAttackRange, value);
+        }
+    }
+    public bool isCoolingDownAttack
+    {
+        get { return _isCoolingDownAttack; }
+        private set
+        {
+            _isCoolingDownAttack = value;
+            animator.SetBool(AnimationStrings.isCoolingDownAttack, value);
         }
     }
     public bool canMove
@@ -72,8 +81,8 @@ public class KnightController : MonoBehaviour
         if (Time.time >= attackCooldownTimer)
         {
             isInAttackRange = detectionZone.detectedColliders.Count > 0;
-            attackCooldownTimer = Time.time + attackCooldown;
-        } 
+            attackCooldownTimer = Time.time + attackCooldownDuration;
+        }
         else
         {
             if (isInAttackRange)
@@ -95,7 +104,7 @@ public class KnightController : MonoBehaviour
         } 
         else
         {
-            rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkToStopRate), rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
 

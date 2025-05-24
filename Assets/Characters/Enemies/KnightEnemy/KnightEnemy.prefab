@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 493930197165165430}
   - component: {fileID: 2481171658717711066}
   - component: {fileID: 1034018433899327995}
+  - component: {fileID: 1272936919899495461}
   m_Layer: 8
   m_Name: KnightEnemy
   m_TagString: Untagged
@@ -170,9 +171,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 3
-  attackCooldown: 1
+  attackCooldownDuration: 1.5
   detectionZone: {fileID: 2990103184657042975}
   _isInAttackRange: 0
+  _isCoolingDownAttack: 0
 --- !u!114 &2481171658717711066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +226,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1272936919899495461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7393597238526209777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd51f05d6d8483479738f339768b57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _isAlive: 1
 --- !u!1 &8396731245937987936
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +307,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.4018185, y: -0.12628555}
+  m_Offset: {x: -0.0839479, y: -0.12628555}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -301,7 +317,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.803637, y: 2.354704}
+  m_Size: {x: 2.4393783, y: 2.354704}
   m_EdgeRadius: 0
 --- !u!114 &2990103184657042975
 MonoBehaviour:

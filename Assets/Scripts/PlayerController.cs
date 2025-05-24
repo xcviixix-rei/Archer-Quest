@@ -54,6 +54,10 @@ public class PlayerController : MonoBehaviour
     {
         get { return animator.GetBool(AnimationStrings.canMove); }
     }
+    public bool isAlive
+    {
+        get {return animator.GetBool(AnimationStrings.isAlive); }
+    }
 
     void Awake()
     {
@@ -112,8 +116,15 @@ public class PlayerController : MonoBehaviour
     public void onMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        isMoving = moveInput != Vector2.zero;
-        setFacingDirection(moveInput);
+        if (isAlive)
+        {
+            isMoving = moveInput != Vector2.zero;
+            setFacingDirection(moveInput);
+        }
+        else
+        {
+            isMoving = false;
+        }
     }
 
     public void onRun(InputAction.CallbackContext context)
