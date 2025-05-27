@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class DetectionZone : MonoBehaviour
 {
     BoxCollider2D detectionZone;
+    
+    public UnityEvent noCollidersRemain;
     public List<Collider2D> detectedColliders = new List<Collider2D>();
 
     void Awake()
@@ -23,6 +26,10 @@ public class DetectionZone : MonoBehaviour
         if (other != detectionZone)
         {
             detectedColliders.Remove(other);
+            if (detectedColliders.Count <= 0)
+            {
+                noCollidersRemain.Invoke();
+            }
         }
     }
 }
