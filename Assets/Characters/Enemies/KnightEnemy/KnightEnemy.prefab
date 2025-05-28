@@ -379,7 +379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf8961b3a57fad4ba14ac80313d0112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
+  walkAcceleration: 50
+  maxSpeed: 3
   hitboxDetectionZone: {fileID: 2990103184657042975}
   cliffDetectionZone: {fileID: 7181752480600163156}
   _isInAttackRange: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class KnightController : MonoBehaviour
 {
-    public float walkSpeed = 3f;
+    public float walkAcceleration = 3f;
+    public float maxSpeed = 3f;
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
     public DetectionZone hitboxDetectionZone;
@@ -89,7 +90,8 @@ public class KnightController : MonoBehaviour
         {
             if (canMove)
             {
-                rb.linearVelocity = new Vector2(walkableDirection.x * walkSpeed, rb.linearVelocity.y);
+                float xVelocity = Mathf.Clamp(rb.linearVelocity.x + walkableDirection.x * walkAcceleration * Time.fixedDeltaTime, -maxSpeed, maxSpeed);
+                rb.linearVelocity = new Vector2(xVelocity, rb.linearVelocity.y);
             }
             else
             {
