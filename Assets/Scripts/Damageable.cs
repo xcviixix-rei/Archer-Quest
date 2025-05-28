@@ -81,4 +81,17 @@ public class Damageable : MonoBehaviour
         }
         return false;
     }
+    public bool Heal(int healAmount)
+    {
+        if (isAlive && currentHealth < maxHealth)
+        {
+            float tmpHealth = currentHealth;
+            currentHealth += healAmount;
+            currentHealth = Mathf.Min(currentHealth, maxHealth);
+            healAmount = Mathf.RoundToInt(currentHealth - tmpHealth);
+            CharacterEvents.OnCharacterHealed?.Invoke(gameObject, healAmount);
+            return true;
+        }
+        return false;
+    }
 }
