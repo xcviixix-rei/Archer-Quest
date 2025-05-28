@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_attack_1
+  m_Name: player_attack_3
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -40,7 +40,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.38333333
+        time: 0.4
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -49,7 +49,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.6666667
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -61,7 +61,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: SwordAttack1
+    path: SwordAttack3
     classID: 60
     script: {fileID: 0}
     flags: 0
@@ -69,15 +69,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: b0558cee299e68343bf10ddb09eceb01, type: 3}
-    - time: 0.11666667
-      value: {fileID: 21300000, guid: 33d5b6b7f66168845a0893d9ad022829, type: 3}
+      value: {fileID: 21300000, guid: 3b5838e8ee6b5b7449ccf4d48d3fa75b, type: 3}
+    - time: 0.13333334
+      value: {fileID: 21300000, guid: 67f2d67ad2e434c4e879f101380965d2, type: 3}
     - time: 0.26666668
-      value: {fileID: 21300000, guid: c50f6c21694e4d94daf5a4de284104fe, type: 3}
-    - time: 0.38333333
-      value: {fileID: 21300000, guid: 1af7db86703f34d4b89a2b57c08028c8, type: 3}
-    - time: 0.5
-      value: {fileID: 21300000, guid: 428db75e4269f2d4abe7eb3a060eab67, type: 3}
+      value: {fileID: 21300000, guid: 2b27d10439f066942981e6ec0cf4e437, type: 3}
+    - time: 0.4
+      value: {fileID: 21300000, guid: 403d400f2bdec5b4db19850e14725bc1, type: 3}
+    - time: 0.53333336
+      value: {fileID: 21300000, guid: 04123140f50ea9c448b48877bdf79914, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 5bb77010d0c421b4396594806703ea31, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -91,7 +93,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 762327888
+      path: 3279835772
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 60
@@ -109,17 +111,18 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: b0558cee299e68343bf10ddb09eceb01, type: 3}
-    - {fileID: 21300000, guid: 33d5b6b7f66168845a0893d9ad022829, type: 3}
-    - {fileID: 21300000, guid: c50f6c21694e4d94daf5a4de284104fe, type: 3}
-    - {fileID: 21300000, guid: 1af7db86703f34d4b89a2b57c08028c8, type: 3}
-    - {fileID: 21300000, guid: 428db75e4269f2d4abe7eb3a060eab67, type: 3}
+    - {fileID: 21300000, guid: 3b5838e8ee6b5b7449ccf4d48d3fa75b, type: 3}
+    - {fileID: 21300000, guid: 67f2d67ad2e434c4e879f101380965d2, type: 3}
+    - {fileID: 21300000, guid: 2b27d10439f066942981e6ec0cf4e437, type: 3}
+    - {fileID: 21300000, guid: 403d400f2bdec5b4db19850e14725bc1, type: 3}
+    - {fileID: 21300000, guid: 04123140f50ea9c448b48877bdf79914, type: 3}
+    - {fileID: 21300000, guid: 5bb77010d0c421b4396594806703ea31, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.51666665
+    m_StopTime: 0.68333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -158,7 +161,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.38333333
+        time: 0.4
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -167,7 +170,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.6666667
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -179,7 +182,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: SwordAttack1
+    path: SwordAttack3
     classID: 60
     script: {fileID: 0}
     flags: 0

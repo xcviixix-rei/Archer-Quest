@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     Animator animator;
+    public bool attackButtonBuffered = false;
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
     public float airSpeedX = 5f;
@@ -147,6 +148,7 @@ public class PlayerController : MonoBehaviour
         if (context.started && touchingDirections.isGrounded && canMove)
         {
             animator.SetTrigger(AnimationStrings.attackTrigger);
+            attackButtonBuffered = true;
         }
     }
 
