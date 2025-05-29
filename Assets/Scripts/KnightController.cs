@@ -88,7 +88,7 @@ public class KnightController : MonoBehaviour
         }
         if (!damageable.lockVelocity)
         {
-            if (canMove)
+            if (canMove && touchingDirections.isGrounded)
             {
                 float xVelocity = Mathf.Clamp(rb.linearVelocity.x + walkableDirection.x * walkAcceleration * Time.fixedDeltaTime, -maxSpeed, maxSpeed);
                 rb.linearVelocity = new Vector2(xVelocity, rb.linearVelocity.y);
