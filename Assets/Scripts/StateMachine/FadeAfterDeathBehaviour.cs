@@ -3,7 +3,9 @@ using UnityEngine;
 public class FadeAfterDeathBehaviour : StateMachineBehaviour
 {
     public float fadeDuration = 1f;
+    public float fadeDelay = 0.25f;
     private float fadeTimer = 0f;
+    private float fadeDelayTimer = 0f;
     SpriteRenderer spriteRenderer;
     GameObject gameObject;
     Color initialColor;
@@ -11,6 +13,7 @@ public class FadeAfterDeathBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         fadeTimer = 0f;
+        fadeDelayTimer = 0f;
         spriteRenderer = animator.GetComponent<SpriteRenderer>();
         initialColor = spriteRenderer.color;
         gameObject = animator.gameObject;
@@ -19,17 +22,24 @@ public class FadeAfterDeathBehaviour : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        fadeTimer += Time.deltaTime;
-        float newAlpha = initialColor.a * (1f - fadeTimer / fadeDuration);
-        spriteRenderer.color = new Color(
-            initialColor.r,
-            initialColor.g,
-            initialColor.b,
-            newAlpha
-        );
-        if (fadeTimer > fadeDuration)
+        if (fadeDelay > 0 && fadeDelayTimer < fadeDelay)
         {
-            Destroy(gameObject);
+            fadeDelayTimer += Time.deltaTime;
+        }
+        else
+        {
+            fadeTimer += Time.deltaTime;
+            float newAlpha = initialColor.a * (1f - fadeTimer / fadeDuration);
+            spriteRenderer.color = new Color(
+                initialColor.r,
+                initialColor.g,
+                initialColor.b,
+                newAlpha
+            );
+            if (fadeTimer > fadeDuration)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
