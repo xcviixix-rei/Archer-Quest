@@ -11,6 +11,7 @@ internal class AnimationStrings
     internal static string isOnCeiling = "isOnCeiling";
     internal static string attackTrigger = "attack";
     internal static string canMove = "canMove";
+    internal static string rangedAttackTrigger = "rangedAttackTrigger";
 
     //Knight's animation strings
     internal static string isInAttackRange = "isInAttackRange";

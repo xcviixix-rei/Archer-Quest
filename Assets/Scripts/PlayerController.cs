@@ -150,6 +150,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void onRangedAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            animator.SetTrigger(AnimationStrings.rangedAttackTrigger);
+        }
+    }
+
     public void onHit(int damage, Vector2 knockback)
     {
         rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
