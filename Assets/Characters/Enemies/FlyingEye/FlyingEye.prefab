@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &8013553313041578303
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -129,7 +129,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3496584763879120036}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -174,13 +174,13 @@ MonoBehaviour:
   damageableHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 6459297399585758596}
+        m_TargetAssemblyTypeName: FlyingEyeController, Assembly-CSharp
+        m_MethodName: onHit
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -224,6 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82589bc56e03f2648bfdac36d80567af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitboxDetectionZone: {fileID: 3359524930280244626}
+  _isInAttackRange: 0
 --- !u!1 &4758416546345024100
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 4758416546345024100}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.77, y: -0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -271,19 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noCollidersRemain:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4758416546345024100}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   detectedColliders: []
 --- !u!58 &2349138951770600645
 CircleCollider2D:
@@ -319,8 +309,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1, y: -0.5}
-  m_Radius: 0.89824677
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.9
 --- !u!1 &8055928416988442524
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 8055928416988442524}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.72, y: -0.317, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -366,8 +356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3ed63798f7c0e4b8a1f1aa7ce56426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage1: 10
-  knockback: {x: 5, y: 2}
+  attackDamage1: 15
+  knockback: {x: 1, y: 0}
 --- !u!70 &929267221133895238
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -375,7 +365,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8055928416988442524}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -402,8 +392,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.97, y: -0.4}
-  m_Size: {x: 1.2964935, y: 1.483207}
+  m_Offset: {x: 0.14339066, y: -0.12935627}
+  m_Size: {x: 1.0097122, y: 1.0097122}
   m_Direction: 0
 --- !u!1 &8071337968814684787
 GameObject:
