@@ -4,6 +4,11 @@ public class HealthPickup : MonoBehaviour
 {
     public int healthRestore = 20;
     public Vector3 spinRotationSpeed = new Vector3(0, 180, 0);
+    AudioSource pickupSFX;
+    void Awake()
+    {
+        pickupSFX = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,8 +22,7 @@ public class HealthPickup : MonoBehaviour
 
             if (wasHealed)
             {
-                // If healing was successful (e.g., player wasn't at full health),
-                // destroy the pickup object.
+                if (pickupSFX) AudioSource.PlayClipAtPoint(pickupSFX.clip, gameObject.transform.position, pickupSFX.volume);
                 Destroy(gameObject);
             }
         }
