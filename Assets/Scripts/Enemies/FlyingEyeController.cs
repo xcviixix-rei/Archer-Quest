@@ -8,10 +8,11 @@ public class FlyingEyeController : MonoBehaviour
     Damageable damageable;
     Animator animator;
     Rigidbody2D rb;
+    public  Collider2D deathCollider;
     public List<Transform> wayPoints = new List<Transform>();
     int wayPointNumber = 0;
     public Transform nextWayPoint;
-    public float wayPointReachedDistance = 0.01f;
+    public float wayPointReachedDistance = 0.1f;
     public bool _isInAttackRange = false;
 
     public bool isInAttackRange
@@ -67,20 +68,58 @@ public class FlyingEyeController : MonoBehaviour
     {
         isInAttackRange = hitboxDetectionZone.detectedColliders.Count > 0;
     }
+    private void OnEnable()
+    {
+        damageable.damageableDeath.AddListener(onDeath);
+    }
     public void Flight()
     {
         Vector2 directionToWayPoint = (nextWayPoint.position - transform.position).normalized;
-        float distance = Vector2.Distance(directionToWayPoint, transform.position);
+        float distance = Vector2.Distance(nextWayPoint.position, transform.position);
+        Debug.Log(distance);
         rb.linearVelocity = directionToWayPoint * fligtSpeed;
+        FlipDirection();
         if (distance <= wayPointReachedDistance)
         {
             wayPointNumber++;
             if (wayPointNumber >= wayPoints.Count) wayPointNumber = 0;
             nextWayPoint = wayPoints[wayPointNumber];
+            Debug.Log("This line was ran");
+        }
+    }
+    private void FlipDirection()
+    {
+        if (transform.localScale.x > 0)
+        {
+            if (rb.linearVelocityX < 0)
+            {
+                transform.localScale = new Vector3(-1 * transform.localScale.x,
+                                                    transform.localScale.y,
+                                                    transform.localScale.x);
+            }
+        }
+        else if (transform.localScale.x < 0)
+        {
+            if (rb.linearVelocityX > 0)
+            {
+                transform.localScale = new Vector3(-1 * transform.localScale.x,
+                                                    transform.localScale.y,
+                                                    transform.localScale.x);
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid walk direction");
         }
     }
     public void onHit(int damage, Vector2 knockback)
     {
         rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
+    }
+    public void onDeath()
+    {
+        rb.gravityScale = 0.7f;
+        rb.linearVelocity = new Vector2(0, rb.linearVelocityY);
+        deathCollider.enabled = true;
     }
 }

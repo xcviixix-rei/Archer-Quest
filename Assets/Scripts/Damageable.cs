@@ -6,6 +6,7 @@ public class Damageable : MonoBehaviour
 {
     Animator animator;
     public UnityEvent<int, Vector2> damageableHit;
+    public UnityEvent damageableDeath;
     [SerializeField]
     private float _maxHealth = 100f;
     public float maxHealth
@@ -22,6 +23,7 @@ public class Damageable : MonoBehaviour
             _isAlive = value;
             animator.SetBool(AnimationStrings.isAlive, value);
             Debug.Log("Is Alive: " + value);
+            if (!value) damageableDeath.Invoke();
         }
     }
     [SerializeField]
